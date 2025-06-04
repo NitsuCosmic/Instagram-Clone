@@ -4,7 +4,7 @@ import Sidebar from "./components/Sidebar";
 
 const App = () => {
 	return (
-		<div className="min-h-screen bg-gray-50">
+		<div className="min-h-screen bg-black text-[#F5F5F5]">
 			<Header />
 			<div className="flex">
 				<Sidebar />

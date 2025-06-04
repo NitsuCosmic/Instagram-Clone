@@ -1,5 +1,19 @@
+import { Outlet } from "react-router";
+import Header from "./components/Header";
+import Sidebar from "./components/Sidebar";
+
 const App = () => {
-	return <div>App</div>;
+	return (
+		<div className="min-h-screen bg-gray-50">
+			<Header />
+			<div className="flex">
+				<Sidebar />
+				<main className="flex-1">
+					<Outlet />
+				</main>
+			</div>
+		</div>
+	);
 };
 
 export default App;

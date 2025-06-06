@@ -1,5 +1,11 @@
+import Feed from "@/components/Feed";
+
 const HomePage = () => {
-	return <div>HomePage</div>;
+	return (
+		<div className="flex justify-center">
+			<Feed />
+		</div>
+	);
 };
 
 export default HomePage;

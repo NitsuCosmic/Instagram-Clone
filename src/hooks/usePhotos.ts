@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 const usePhotos = (imgPerPage = 10) => {
   const [photos, setPhotos] = useState<FeedCardProps[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
-	const [error, setError] = useState<Error | string | null>("Error");
+	const [error, setError] = useState<Error | string | null>(null);
 
 	const getPhotos = async () => {
 		try {

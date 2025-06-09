@@ -1,10 +1,14 @@
 import Feed from "@/components/Feed";
+import Header from "@/components/Header";
 
 const HomePage = () => {
 	return (
-		<div className="flex justify-center">
-			<Feed />
-		</div>
+		<>
+			<Header />
+			<div className="flex justify-center">
+				<Feed />
+			</div>
+		</>
 	);
 };
 

@@ -45,7 +45,7 @@ const desktopNavItems = [
 
 const mobileNavItems = [
 	{ path: "/", icon: House },
-	{ path: "/search", icon: Search },
+	{ path: "/explore", icon: Search },
 	{ path: "/reels", icon: Film },
 	{ path: "/messages", icon: Send },
 	{ path: "/profile", icon: User, isProfile: true },

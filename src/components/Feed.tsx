@@ -1,50 +1,11 @@
-import { baseUrl } from "@/config/endpoints";
-import { accessKey } from "@/config/env";
-import type { FeedCard as FeedCardProps } from "@/types/api";
+import usePhotos from "@/hooks/usePhotos";
 import { AlertCircle, RefreshCw, WifiOff } from "lucide-react";
-import { useEffect, useState } from "react";
 import FeedCard, { FeedCardSkeleton } from "./FeedCard";
 
 const Feed = () => {
-	const [photos, setPhotos] = useState<FeedCardProps[]>([]);
-	const [isLoading, setIsLoading] = useState(true);
-	const [error, setError] = useState<Error | string | null>(null);
+	const { photos, isLoading, error } = usePhotos();
 
-	const getPhotos = async () => {
-		try {
-			setIsLoading(true);
-			setError(null);
-			const response = await fetch(`${baseUrl}photos?page=1`, {
-				headers: {
-					Authorization: `Client-ID ${accessKey}`,
-					"Content-Type": "application/json",
-				},
-			});
-			if (!response.ok) {
-				throw new Error(`HTTP error! Status: ${response.status}`);
-			}
-			const data: FeedCardProps[] = await response.json();
-			console.log(data);
-			setPhotos(data);
-		} catch (err) {
-			const errorMessage =
-				err instanceof Error
-					? err.message
-					: "An unexpected error occurred while fetching photos";
-			setError(errorMessage);
-			console.error("Error fetching photos:", err);
-		} finally {
-			setIsLoading(true);
-		}
-	};
-
-	const handleRetry = () => {
-		getPhotos();
-	};
-
-	useEffect(() => {
-		getPhotos();
-	}, []);
+	const handleRetry = () => {};
 
 	// Loading skeleton component
 	const LoadingSkeleton = () => (

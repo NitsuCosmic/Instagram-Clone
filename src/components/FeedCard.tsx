@@ -60,13 +60,14 @@ const FeedCard = ({ photo }: Props) => {
 			</div>
 
 			{/* Image */}
-			<div className="relative">
+			<div className="relative bg-neutral-600">
 				<img
 					src={photo.urls.raw}
 					alt="Post content"
 					className="w-full object-cover"
 					onDoubleClick={handleLike}
 					loading="lazy"
+					style={{ aspectRatio: `${photo.width}/${photo.height}` }}
 				/>
 			</div>
 

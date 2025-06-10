@@ -64,7 +64,14 @@ interface UserProfilePhoto {
   large: string;
 }
 
-interface User {
+interface UserBadge {
+  title: string;
+  primary: boolean;
+  slug: string;
+  link: string;
+}
+
+export interface User {
   id: string;
   updated_at: string;
   username: string;
@@ -76,7 +83,9 @@ interface User {
   total_photos: number;
   total_collections: number;
   links: UserLinks;
+  downloads: number;
   profile_image: UserProfilePhoto;
+  badge: UserBadge;
 }
 
 // Main FeedCard interface

@@ -8,6 +8,7 @@ import {
 	Send,
 } from "lucide-react";
 import { useState } from "react";
+import { NavLink } from "react-router";
 import { Skeleton } from "./ui/skeleton";
 
 interface Props {
@@ -39,13 +40,19 @@ const FeedCard = ({ photo }: Props) => {
 			{/* Header */}
 			<div className="flex items-center justify-between max-md:p-3 md:py-3">
 				<div className="flex items-center space-x-3">
-					<img
-						src={photo.user.profile_image.medium}
-						alt={photo.alt_description}
-						className="w-7 h-7 rounded-full object-cover"
-					/>
+					<NavLink to={`/${photo.user.username}`}>
+						<img
+							src={photo.user.profile_image.medium}
+							alt={photo.alt_description}
+							className="w-7 h-7 rounded-full object-cover"
+						/>
+					</NavLink>
 					<div className="flex items-center space-x-1">
-						<span className="font-semibold text-sm">{photo.user.username}</span>
+						<NavLink to={`/${photo.user.username}`}>
+							<span className="font-semibold text-sm hover:underline">
+								{photo.user.username}
+							</span>
+						</NavLink>
 						<span className="text-gray-300 text-sm">
 							• {formatInstagramDate(photo.created_at)} •
 						</span>

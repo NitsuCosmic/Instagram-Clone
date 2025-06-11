@@ -1,12 +1,15 @@
 interface Props {
 	label: string;
+	stretched?: boolean;
 	parentMethod?: () => void;
 }
 
-const Button = ({ label, parentMethod }: Props) => {
+const Button = ({ label, stretched = false, parentMethod }: Props) => {
 	return (
 		<button
-			className="font-semibold py-1 px-3 rounded-lg cursor-pointer bg-blue-500 hover:bg-blue-600"
+			className={`${
+				stretched ? "w-full" : ""
+			} text-sm font-semibold py-1 px-5 rounded-lg cursor-pointer bg-neutral-700 hover:bg-neutral-800`}
 			onClick={parentMethod}
 		>
 			{label}

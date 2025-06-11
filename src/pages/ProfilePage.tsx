@@ -63,15 +63,36 @@ const ProfilePage = () => {
 							</div>
 						</section>
 						<section className="flex md:items-start max-lg:flex-col md:mb-4">
-							<div className="flex h-full max-md:flex-col max-md:justify-between md:items-start md:gap-4">
+							<div className="flex h-full max-md:hidden max-md:flex-col max-md:justify-between md:items-start md:gap-4">
 								<h2 className="text-xl max-md:hidden max-md:mt-2">
 									{user.username}
 								</h2>
-								<h2 className="md:hidden max-md:mt-2">{user.name}</h2>
 								<div className="flex max-lg:justify-start items-center gap-2">
 									<Button label="Follow" />
 									<Button label="Message" />
 									<Ellipsis />
+								</div>
+							</div>
+							<div className="flex h-full max-md:flex-col max-md:justify-between md:hidden">
+								<h2 className="mt-2">{user.name}</h2>
+								<div className="flex max-lg:justify-start items-center gap-2">
+									<ul className="flex items-center gap-8 text-neutral-100">
+										<li className="flex flex-col items-start">
+											<span>
+												{formatLikes(user.total_photos)} <br /> posts
+											</span>
+										</li>
+										<li className="flex flex-col items-start">
+											<span>
+												{formatLikes(user.downloads)} <br /> downloads
+											</span>
+										</li>
+										<li className="flex flex-col items-start">
+											<span>
+												{user.total_likes} <br /> likes
+											</span>
+										</li>
+									</ul>
 								</div>
 							</div>
 						</section>

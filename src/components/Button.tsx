@@ -9,7 +9,7 @@ const Button = ({ label, stretched = false, parentMethod }: Props) => {
 		<button
 			className={`${
 				stretched ? "w-full" : ""
-			} text-sm font-semibold py-1 px-5 rounded-lg cursor-pointer bg-neutral-700 hover:bg-neutral-800`}
+			} text-sm font-semibold py-1.5 px-5 rounded-md cursor-pointer bg-neutral-800 hover:bg-neutral-900`}
 			onClick={parentMethod}
 		>
 			{label}

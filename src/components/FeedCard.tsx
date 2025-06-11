@@ -1,4 +1,4 @@
-import type { FeedCard as FeedCardProps } from "@/types/api";
+import type { Post } from "@/types/api";
 import { formatInstagramDate } from "@/utils/dataFormatter";
 import {
 	Bookmark,
@@ -12,7 +12,7 @@ import { NavLink } from "react-router";
 import { Skeleton } from "./ui/skeleton";
 
 interface Props {
-	photo: FeedCardProps;
+	photo: Post;
 }
 
 const FeedCard = ({ photo }: Props) => {

@@ -89,7 +89,7 @@ export interface User {
 }
 
 // Main FeedCard interface
-interface FeedCard {
+interface Post {
   alt_description: string;
   id: string;
   created_at: string;
@@ -113,5 +113,5 @@ interface FeedCard {
 }
 
 // Export the main interface
-export type { FeedCard };
+export type { Post };
 

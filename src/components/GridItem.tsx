@@ -1,8 +1,8 @@
-import type { FeedCard } from "@/types/api";
+import type { Post } from "@/types/api";
 import { Heart } from "lucide-react";
 
 interface Props {
-	photo: FeedCard;
+	photo: Post;
 }
 
 const GridItem = ({ photo }: Props) => {

@@ -106,6 +106,11 @@ const ProfilePage = () => {
 								<p>No bio yet.</p>
 							)}
 						</section>
+						<section className="flex gap-1.5 col-span-2 mt-2 md:hidden">
+							<Button label="Follow" stretched />
+							<Button label="Message" stretched />
+							<Button label="Subscribe" stretched />
+						</section>
 					</div>
 					<ProfileTabs tab={tab} changeTab={changeTab} />
 					<div className="pb-4">{renderTabContent(tab)}</div>

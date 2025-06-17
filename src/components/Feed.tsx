@@ -24,7 +24,7 @@ const Feed = () => {
 		error: string;
 		onRetry: () => void;
 	}) => (
-		<div className="bg-white border border-red-100 rounded-xl p-6 shadow-sm">
+		<div className=" p-6">
 			<div className="text-center">
 				{/* Error icon */}
 				<div className="mx-auto w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mb-4">
@@ -36,13 +36,13 @@ const Feed = () => {
 				</div>
 
 				{/* Error message */}
-				<h3 className="text-lg font-semibold text-gray-900 mb-2">
+				<h3 className="text-lg font-semibold mb-2">
 					{error.includes("network") || error.includes("fetch")
 						? "Connection Problem"
 						: "Something went wrong"}
 				</h3>
 
-				<p className="text-gray-600 text-sm mb-6 max-w-sm mx-auto">
+				<p className="text-gray-300 text-sm mb-4 max-w-sm mx-auto">
 					{error.includes("network") || error.includes("fetch")
 						? "Please check your internet connection and try again."
 						: error.includes("401") || error.includes("403")
@@ -65,7 +65,7 @@ const Feed = () => {
 				</button>
 
 				{/* Additional help text */}
-				<p className="text-xs text-gray-500 mt-4">
+				<p className="text-xs text-gray-300 mt-4">
 					Still having trouble? Check your internet connection or contact
 					support.
 				</p>

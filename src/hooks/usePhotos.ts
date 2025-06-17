@@ -1,10 +1,10 @@
 import { baseUrl } from '@/config/endpoints';
 import { accessKey } from '@/config/env';
-import type { FeedCard as FeedCardProps } from '@/types/api';
+import type { Post } from '@/types/api';
 import { useEffect, useState } from 'react';
 
-const usePhotos = (imgPerPage = 10) => {
-  const [photos, setPhotos] = useState<FeedCardProps[]>([]);
+const usePhotos = (pageNumber = 1, imgPerPage = 10) => {
+  const [photos, setPhotos] = useState<Post[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<Error | string | null>(null);
 
@@ -12,7 +12,7 @@ const usePhotos = (imgPerPage = 10) => {
 		try {
 			setIsLoading(true);
 			setError(null);
-			const response = await fetch(`${baseUrl}photos?page=1&per_page=${imgPerPage}`, {
+			const response = await fetch(`${baseUrl}photos?page=${pageNumber}&per_page=${imgPerPage}`, {
 				headers: {
 					Authorization: `Client-ID ${accessKey}`,
 					"Content-Type": "application/json",
@@ -21,7 +21,7 @@ const usePhotos = (imgPerPage = 10) => {
 			if (!response.ok) {
 				throw new Error(`HTTP error! Status: ${response.status}`);
 			}
-			const data: FeedCardProps[] = await response.json();
+			const data: Post[] = await response.json();
 			console.log(data);
 			setPhotos(data);
 		} catch (err) {

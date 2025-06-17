@@ -1,14 +1,14 @@
 import { baseUrl } from '@/config/endpoints';
 import { accessKey } from '@/config/env';
 import type { Post } from '@/types/api';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 const usePhotos = (pageNumber = 1, imgPerPage = 10) => {
   const [photos, setPhotos] = useState<Post[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<Error | string | null>(null);
 
-	const getPhotos = async () => {
+	const getPhotos = useCallback(async () => {
 		try {
 			setIsLoading(true);
 			setError(null);
@@ -34,11 +34,11 @@ const usePhotos = (pageNumber = 1, imgPerPage = 10) => {
 		} finally {
 			setIsLoading(false);
 		}
-	};
+	}, [pageNumber, imgPerPage])
 	
 	useEffect(() => {
 		getPhotos();
-	}, []);
+	}, [getPhotos]);
 
 		const handleRetry = () => {
 		getPhotos()

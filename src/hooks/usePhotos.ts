@@ -3,7 +3,7 @@ import { accessKey } from '@/config/env';
 import type { Post } from '@/types/api';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-const usePhotos = (currentPage = 1) => {
+const usePhotos = (currentPage = 1, perPage = 10) => {
   const [photos, setPhotos] = useState<Post[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
@@ -11,7 +11,6 @@ const usePhotos = (currentPage = 1) => {
   const [error, setError] = useState<Error | string | null>(null);
 
   const lastFetchedPageRef = useRef(0);
-  const PER_PAGE = 10;
 
   // Helper function to deduplicate photos by id
   const deduplicatePhotos = useCallback((existingPhotos: Post[], newPhotos: Post[]) => {
@@ -32,7 +31,7 @@ const usePhotos = (currentPage = 1) => {
     setError(null);
 
     try {
-      const response = await fetch(`${baseUrl}photos?page=${page}&per_page=${PER_PAGE}`, {
+      const response = await fetch(`${baseUrl}photos?page=${page}&per_page=${perPage}`, {
         headers: {
           Authorization: `Client-ID ${accessKey}`,
           'Content-Type': 'application/json',
@@ -45,7 +44,7 @@ const usePhotos = (currentPage = 1) => {
 
       const data: Post[] = await response.json();
 
-      setHasMore(data.length === PER_PAGE);
+      setHasMore(data.length === perPage);
 
       if (page === 1) {
         setPhotos(data);

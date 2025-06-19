@@ -3,11 +3,15 @@ import { Heart } from "lucide-react";
 
 interface Props {
 	photo: Post;
+	onClick?: () => void;
 }
 
-const GridItem = ({ photo }: Props) => {
+const GridItem = ({ photo, onClick }: Props) => {
 	return (
-		<div className="relative aspect-square overflow-hidden bg-neutral-600 cursor-pointer group">
+		<div
+			onClick={onClick}
+			className="relative aspect-square overflow-hidden bg-neutral-600 cursor-pointer group"
+		>
 			<img
 				src={photo.urls.small}
 				alt={photo.alt_description}

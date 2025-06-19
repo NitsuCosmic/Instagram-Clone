@@ -1,4 +1,5 @@
 import GridItem from "@/components/GridItem";
+import PostModal from "@/components/PostModal";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import usePhotos from "@/hooks/usePhotos";
 import { LoaderCircle, Search } from "lucide-react";
@@ -6,6 +7,9 @@ import { useEffect, useRef, useState } from "react";
 
 const ExplorePage = () => {
 	const [page, setPage] = useState(1);
+	const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number | null>(
+		null
+	);
 	const [triggerRef, isIntersecting] = useIntersectionObserver({
 		threshold: 0.1, // Trigger when 10% of the element is visible
 		rootMargin: "300px", // Start loading 150px before the element comes into view
@@ -14,6 +18,9 @@ const ExplorePage = () => {
 		usePhotos(page, 30);
 
 	const hasRequestedRef = useRef(false);
+
+	const handleCloseModal = () => setSelectedPhotoIndex(null);
+	const handleOpenModal = (index: number) => setSelectedPhotoIndex(index);
 
 	useEffect(() => {
 		if (
@@ -72,10 +79,15 @@ const ExplorePage = () => {
 			{!isLoading && !error && photos && (
 				<>
 					<section className="grid gap-1 grid-cols-3">
-						{photos.map((photo) => (
-							<GridItem key={photo.id} photo={photo} />
+						{photos.map((photo, index) => (
+							<GridItem
+								key={photo.id}
+								photo={photo}
+								onClick={() => handleOpenModal(index)}
+							/>
 						))}
 					</section>
+
 					{hasMore && !isLoadingMore && (
 						<div ref={triggerRef} className="h-0" aria-hidden="true" />
 					)}
@@ -92,6 +104,23 @@ const ExplorePage = () => {
 						</div>
 					)}
 				</>
+			)}
+
+			{selectedPhotoIndex !== null && photos[selectedPhotoIndex] && (
+				<PostModal
+					post={photos[selectedPhotoIndex]}
+					onClose={handleCloseModal}
+					onPrev={() =>
+						setSelectedPhotoIndex((i) => (i !== null && i > 0 ? i - 1 : i))
+					}
+					onNext={() =>
+						setSelectedPhotoIndex((i) =>
+							i !== null && i < photos.length - 1 ? i + 1 : i
+						)
+					}
+					hasPrev={selectedPhotoIndex > 0}
+					hasNext={selectedPhotoIndex < photos.length - 1}
+				/>
 			)}
 		</div>
 	);

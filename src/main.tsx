@@ -10,6 +10,7 @@ import {
 	PhotoDetailPage,
 	ProfilePage,
 } from "./pages/index.ts";
+import SearchPage from "./pages/SearchPage.tsx";
 
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
@@ -22,6 +23,9 @@ createRoot(document.getElementById("root")!).render(
 
 					{/* Explore and search */}
 					<Route path="explore" element={<ExplorePage />} />
+
+					{/* Search accounts */}
+					<Route path="search" element={<SearchPage />} />
 
 					{/* Photo detail */}
 					<Route path="photo/:photoId" element={<PhotoDetailPage />} />

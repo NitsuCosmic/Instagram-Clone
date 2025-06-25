@@ -4,6 +4,7 @@ import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import usePhotos from "@/hooks/usePhotos";
 import { LoaderCircle, Search } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { NavLink } from "react-router";
 
 const ExplorePage = () => {
 	const [page, setPage] = useState(1);
@@ -44,10 +45,13 @@ const ExplorePage = () => {
 	return (
 		<div className="max-w-[930px] mx-auto pb-[58px]">
 			<div className="p-2 md:hidden select-none">
-				<div className="flex items-center gap-3 px-3 py-1.25 rounded-lg bg-[#363636]">
+				<NavLink
+					to={"/search"}
+					className="flex items-center gap-3 px-3 py-1.25 rounded-lg bg-[#363636]"
+				>
 					<Search size={20} />
 					<p className="text-neutral-400">Search</p>
-				</div>
+				</NavLink>
 			</div>
 
 			{isLoading && (

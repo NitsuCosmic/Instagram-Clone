@@ -1,73 +1,25 @@
 import SearchBar from "@/components/SearchBar";
 import UserResult from "@/components/UserResult";
-import { baseUrl } from "@/config/endpoints";
-import { accessKey } from "@/config/env";
-import type { User } from "@/types/api";
-import { Loader2, Search } from "lucide-react";
-import { useCallback, useState } from "react";
+import useUsers from "@/hooks/useUsers";
+import { Loader2, Search, X } from "lucide-react";
 
 const SearchPage = () => {
-	const [users, setUsers] = useState<User[]>([]);
-	const [query, setQuery] = useState("");
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState<string | null>(null);
-	const [hasSearched, setHasSearched] = useState(false);
-
-	const fetchUsers = async (searchQuery: string) => {
-		const response = await fetch(
-			`${baseUrl}/search/users?query=${encodeURIComponent(searchQuery)}`,
-			{
-				headers: {
-					Authorization: `Client-ID ${accessKey}`,
-					"Content-Type": "application/json",
-				},
-			}
-		);
-		if (!response.ok) {
-			throw new Error("Failed to fetch users");
-		}
-		return response.json();
-	};
-
-	const onQueryChange = (value: string) => {
-		setQuery(value);
-	};
-
-	const onSearch = useCallback(async (searchQuery: string) => {
-		if (searchQuery.trim() === "") {
-			setUsers([]);
-			setHasSearched(false);
-			setError(null);
-			return;
-		}
-
-		setLoading(true);
-		setError(null);
-		setHasSearched(true);
-
-		try {
-			const searchResults = await fetchUsers(searchQuery);
-			setUsers(searchResults.results);
-			console.log(searchResults.results);
-		} catch (err) {
-			setError(
-				err instanceof Error ? err.message : "An error occurred while searching"
-			);
-			setUsers([]);
-		} finally {
-			setLoading(false);
-		}
-	}, []);
-
-	const onClear = () => {
-		setQuery("");
-		setError(null);
-		setHasSearched(false);
-		setLoading(false);
-	};
+	const {
+		users,
+		searchedUsers,
+		query,
+		loading,
+		error,
+		hasSearched,
+		onSearch,
+		onQueryChange,
+		onClear,
+		saveUsersOnStorage,
+		removeStoredUser,
+	} = useUsers();
 
 	return (
-		<div className="max-w-[930px] mx-auto pb-[58px]">
+		<div className="max-w-[930px] mx-auto pb-[58px] overflow-hidden">
 			<SearchBar
 				query={query}
 				onSearch={onSearch}
@@ -106,7 +58,30 @@ const SearchPage = () => {
 				<div className="mt-4">
 					<div className="space-y-2">
 						{users.map((user) => (
-							<UserResult key={user.id} user={user} />
+							<UserResult
+								key={user.id}
+								user={user}
+								onClick={saveUsersOnStorage}
+							/>
+						))}
+					</div>
+				</div>
+			)}
+
+			{!loading && users.length === 0 && searchedUsers.length > 0 && (
+				<div className="mt-4">
+					<h3 className="mx-2 font-semibold">Recent</h3>
+					<div className="space-y-2">
+						{searchedUsers.map((user) => (
+							<div key={user.id} className="flex justify-between">
+								<UserResult user={user} />
+								<button
+									className="mr-2"
+									onClick={() => removeStoredUser(user.id)}
+								>
+									<X size={16} />
+								</button>
+							</div>
 						))}
 					</div>
 				</div>

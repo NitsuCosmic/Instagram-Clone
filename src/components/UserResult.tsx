@@ -3,11 +3,15 @@ import { NavLink } from "react-router";
 
 interface Props {
 	user: User;
+	onClick?: (user: User) => void;
 }
 
-const UserResult = ({ user }: Props) => {
+const UserResult = ({ user, onClick }: Props) => {
 	return (
-		<NavLink to={`/${user.username}`}>
+		<NavLink
+			to={`/${user.username}`}
+			onClick={onClick && (() => onClick(user))}
+		>
 			<div className="flex items-center gap-3 cursor-pointer p-2 rounded-xl transition-colors hover:bg-neutral-800">
 				<div>
 					<img

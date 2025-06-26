@@ -5,7 +5,7 @@ const HomePage = () => {
 	return (
 		<>
 			<Header />
-			<div className="flex justify-center">
+			<div className="flex justify-center overflow-hidden">
 				<Feed />
 			</div>
 		</>
